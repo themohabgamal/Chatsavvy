@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "489488003377",
+    "project_id": "chatsavvy-24e9b",
+    "storage_bucket": "chatsavvy-24e9b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:489488003377:android:875e742d21b3ced9518010",
+        "android_client_info": {
+          "package_name": "com.example.pillwise"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "489488003377-4cn6l1sq6um51reekfoja5bcltbvjbfr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8tVcNAOuzzrndQWqpKztmLRXOka5dQqM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "489488003377-4cn6l1sq6um51reekfoja5bcltbvjbfr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "489488003377-g05hg34vcljc7ns2oh0rq2qdb5cd57ld.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.pillwise"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
