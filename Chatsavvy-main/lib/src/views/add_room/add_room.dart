@@ -7,17 +7,18 @@ import 'package:provider/provider.dart';
 
 class CreateNewRoom extends StatefulWidget {
   static const String routeName = 'createnewRoom';
+
+  const CreateNewRoom({super.key});
   @override
-  _CreateNewRoomState createState() => _CreateNewRoomState();
+  CreateNewRoomState createState() => CreateNewRoomState();
 }
 
-class _CreateNewRoomState extends State<CreateNewRoom>
+class CreateNewRoomState extends State<CreateNewRoom>
     implements AddRoomNavigator {
   AddRoomViewModel addRoomViewModel = AddRoomViewModel();
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
   @override
   void initState() {
+    super.initState();
     addRoomViewModel.addRoomNavigator = this;
   }
 

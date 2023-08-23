@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pillwise/root.dart';
+import 'package:pillwise/src/views/on_boarding/on_boarding_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   static const String routeName = 'splash';
@@ -10,20 +10,21 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Timer(const Duration(seconds: 1),
-        () => Navigator.pushReplacementNamed(context, Root.routeName));
+    Timer(
+        const Duration(seconds: 2),
+        () => Navigator.pushReplacementNamed(
+            context, OnBoardingScreen.routeName));
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
-            image: Image.asset('assets/images/gradient.png').image,
-            fit: BoxFit.cover),
+            image: AssetImage('assets/images/gradient.png'), fit: BoxFit.cover),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
             "assets/images/splash.png",
-            width: 120,
+            width: 140,
             fit: BoxFit.fill,
           ),
           Text(
@@ -31,7 +32,7 @@ class SplashScreen extends StatelessWidget {
             style: GoogleFonts.poppins(
                 decoration: TextDecoration.none,
                 textStyle: const TextStyle(
-                    fontSize: 40,
+                    fontSize: 45,
                     fontWeight: FontWeight.bold,
                     color: Colors.white)),
           )

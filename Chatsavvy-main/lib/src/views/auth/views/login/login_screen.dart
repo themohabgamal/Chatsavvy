@@ -7,6 +7,7 @@ import 'package:pillwise/src/shared/widgets/auth_text_form_field.dart';
 import 'package:pillwise/src/res/colors.dart';
 import 'package:pillwise/src/shared/widgets/custom_button.dart';
 import 'package:pillwise/src/views/auth/views/login/login_view_model.dart';
+// ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {

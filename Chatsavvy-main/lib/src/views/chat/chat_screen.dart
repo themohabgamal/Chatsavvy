@@ -23,7 +23,6 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final ScrollController scrollController = ScrollController();
-  @override
   String? name;
   ChatViewModel chatViewModel = ChatViewModel();
   @override
@@ -168,7 +167,6 @@ class _ChatScreenState extends State<ChatScreen> {
   void _goToBottomPage() {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       scrollController.jumpTo(scrollController.position.maxScrollExtent);
-      print("scrolled");
     });
   }
 }

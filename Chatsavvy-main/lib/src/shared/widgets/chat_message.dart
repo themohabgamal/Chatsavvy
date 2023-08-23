@@ -6,6 +6,7 @@ import 'package:pillwise/src/models/my_message.dart';
 import 'package:pillwise/src/res/colors.dart';
 import 'package:pillwise/src/res/text_style.dart';
 
+// ignore: must_be_immutable
 class ChatMessage extends StatelessWidget {
   MyMessage message;
   ChatMessage({
