@@ -20,13 +20,15 @@ class ChatViewModel extends ChangeNotifier {
         imageUrl: map["image"],
         phone: map["phone"]);
     MyUser.currentUser = user;
+    print(user.imageUrl);
     MyMessage message = MyMessage(
         content: content ?? "",
         messageId: '',
         senderName: user.name,
         senderId: FirebaseAuth.instance.currentUser!.uid,
         roomId: roomId,
-        dateTime: DateTime.now().millisecondsSinceEpoch);
+        dateTime: DateTime.now().millisecondsSinceEpoch,
+        senderImage: user.imageUrl);
     await FireStoreHelper().addMessageToFireStore(message);
     textController.clear();
   }

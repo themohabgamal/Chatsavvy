@@ -178,7 +178,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w400,
-                                fontSize: 16),
+                                fontSize: 18),
                           ),
                           // Add some space between the text and the button
                           TextButton(

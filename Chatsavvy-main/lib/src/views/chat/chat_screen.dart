@@ -23,7 +23,7 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final ScrollController scrollController = ScrollController();
-  String? name;
+  String? imageUrl;
   ChatViewModel chatViewModel = ChatViewModel();
   @override
   void initState() {
@@ -93,7 +93,9 @@ class _ChatScreenState extends State<ChatScreen> {
                     controller: scrollController,
                     itemCount: reversedList.length,
                     itemBuilder: (context, index) {
-                      return ChatMessage(message: reversedList[index]);
+                      return ChatMessage(
+                        message: reversedList[index],
+                      );
                     },
                   ),
                 );
@@ -166,7 +168,9 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void _goToBottomPage() {
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      scrollController.jumpTo(scrollController.position.maxScrollExtent);
+      if (scrollController.hasClients) {
+        scrollController.jumpTo(scrollController.position.maxScrollExtent);
+      }
     });
   }
 }

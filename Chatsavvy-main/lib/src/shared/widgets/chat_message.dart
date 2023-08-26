@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:pillwise/src/models/my_message.dart';
 import 'package:pillwise/src/res/colors.dart';
 import 'package:pillwise/src/res/text_style.dart';
@@ -29,21 +29,52 @@ class ChatMessage extends StatelessWidget {
                     style: bodyText2.copyWith(fontSize: 16),
                   ),
                 ),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  decoration: const BoxDecoration(
-                    color: primaryColor,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                        bottomLeft: Radius.circular(20)),
-                  ),
-                  child: Text(
-                    message.content,
-                    style: bodyText2.copyWith(fontSize: 16),
-                    overflow: TextOverflow.visible,
-                  ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 12),
+                      decoration: const BoxDecoration(
+                        color: primaryColor,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                            bottomLeft: Radius.circular(20)),
+                      ),
+                      child: Text(
+                        message.content,
+                        style: bodyText2.copyWith(fontSize: 16),
+                        overflow: TextOverflow.visible,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 7,
+                    ),
+                    CachedNetworkImage(
+                      imageUrl: message.senderImage,
+                      fit: BoxFit.fill,
+                      imageBuilder: (context, imageProvider) => Container(
+                        width: 50.0,
+                        height: 50.0,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              image: imageProvider, fit: BoxFit.cover),
+                        ),
+                      ),
+                      placeholder: (context, url) => const Padding(
+                        padding: EdgeInsets.all(18.0),
+                        child: CircularProgressIndicator(
+                            strokeWidth: 2, color: primaryColor),
+                      ),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.person, color: Colors.white),
+                    )
+                  ],
                 ),
                 Align(
                   alignment: Alignment.centerLeft,
@@ -60,27 +91,49 @@ class ChatMessage extends StatelessWidget {
         : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                margin: const EdgeInsets.only(left: 10),
-                child: Text(
-                  message.senderName,
-                  style: bodyText2.copyWith(fontSize: 16),
-                ),
+              Text(
+                message.senderName,
+                style: bodyText2.copyWith(fontSize: 16),
               ),
-              Container(
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
-                    )),
-                margin: const EdgeInsets.all(10),
-                padding: const EdgeInsets.all(15),
-                child: Text(
-                  message.content,
-                  style: bodyText2.copyWith(fontSize: 16, color: Colors.black),
-                ),
+              Row(
+                children: [
+                  CachedNetworkImage(
+                    imageUrl: message.senderImage,
+                    fit: BoxFit.fill,
+                    imageBuilder: (context, imageProvider) => Container(
+                      width: 50.0,
+                      height: 50.0,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                            image: imageProvider, fit: BoxFit.cover),
+                      ),
+                    ),
+                    placeholder: (context, url) => const Padding(
+                      padding: EdgeInsets.all(18.0),
+                      child: CircularProgressIndicator(
+                          strokeWidth: 2, color: primaryColor),
+                    ),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.person, color: Colors.white),
+                  ),
+                  Container(
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                          bottomRight: Radius.circular(20),
+                        )),
+                    margin: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(15),
+                    child: Text(
+                      message.content,
+                      style:
+                          bodyText2.copyWith(fontSize: 16, color: Colors.black),
+                    ),
+                  ),
+                ],
               ),
               Align(
                 alignment: Alignment.centerRight,

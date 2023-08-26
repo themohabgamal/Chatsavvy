@@ -45,15 +45,6 @@ class HorizontalAvatarNameChat extends StatelessWidget {
                 ),
               ],
             ),
-            Column(
-              children: [
-                Text("2:40",
-                    style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                        fontSize: 14,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold))
-              ],
-            ),
           ],
         ),
         const SizedBox(

@@ -40,12 +40,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Image.asset(
-                    "assets/images/chatting.png",
-                    fit: BoxFit.cover,
-                  ),
                   const SizedBox(
-                    height: 25,
+                    height: 120,
                   ),
                   const Text(
                     'Login',
@@ -55,7 +51,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
-                  const SizedBox(height: 30),
+                  const Text(
+                    'Please sign in to continue',
+                    style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w300),
+                  ),
+                  const SizedBox(height: 40),
                   Form(
                     key: loginViewModel.formKey,
                     child: Column(
@@ -89,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               'not a user?',
                               style: TextStyle(
                                   fontWeight: FontWeight.w400,
-                                  fontSize: 16,
+                                  fontSize: 18,
                                   color: Colors.white),
                             ),
                             // Add some space between the text and the button

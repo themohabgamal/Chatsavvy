@@ -5,6 +5,7 @@ class MyMessage {
   String content;
   String messageId = '';
   String senderName;
+  String senderImage;
   String senderId;
   String roomId;
   int dateTime;
@@ -12,6 +13,7 @@ class MyMessage {
     required this.content,
     required this.messageId,
     required this.senderName,
+    required this.senderImage,
     required this.senderId,
     required this.roomId,
     required this.dateTime,
@@ -22,6 +24,7 @@ class MyMessage {
       'content': content,
       'messageId': messageId,
       'senderName': senderName,
+      'senderImage': senderImage,
       'senderId': senderId,
       'roomId': roomId,
       'dateTime': dateTime,
@@ -33,6 +36,7 @@ class MyMessage {
       content: map['content'] as String,
       messageId: map['messageId'] as String,
       senderName: map['senderName'] as String,
+      senderImage: map['senderImage'] as String,
       senderId: map['senderId'] as String,
       roomId: map['roomId'] as String,
       dateTime: map['dateTime'] as int,
@@ -48,6 +52,7 @@ class MyMessage {
     String? content,
     String? messageId,
     String? senderName,
+    String? senderImage,
     String? senderId,
     String? roomId,
     int? dateTime,
@@ -56,6 +61,7 @@ class MyMessage {
       content: content ?? this.content,
       messageId: messageId ?? this.messageId,
       senderName: senderName ?? this.senderName,
+      senderImage: senderImage ?? this.senderImage,
       senderId: senderId ?? this.senderId,
       roomId: roomId ?? this.roomId,
       dateTime: dateTime ?? this.dateTime,
@@ -64,7 +70,7 @@ class MyMessage {
 
   @override
   String toString() {
-    return 'MyMessage(content: $content, messageId: $messageId, senderName: $senderName, senderId: $senderId, roomId: $roomId, dateTime: $dateTime)';
+    return 'MyMessage(content: $content, messageId: $messageId, senderName: $senderName,senderImage:$senderImage, senderId: $senderId, roomId: $roomId, dateTime: $dateTime)';
   }
 
   @override
@@ -74,6 +80,7 @@ class MyMessage {
     return other.content == content &&
         other.messageId == messageId &&
         other.senderName == senderName &&
+        other.senderImage == senderImage &&
         other.senderId == senderId &&
         other.roomId == roomId &&
         other.dateTime == dateTime;
@@ -84,6 +91,7 @@ class MyMessage {
     return content.hashCode ^
         messageId.hashCode ^
         senderName.hashCode ^
+        senderImage.hashCode ^
         senderId.hashCode ^
         roomId.hashCode ^
         dateTime.hashCode;
