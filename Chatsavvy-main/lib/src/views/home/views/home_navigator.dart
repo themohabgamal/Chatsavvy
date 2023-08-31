@@ -1,3 +1,3 @@
 abstract class HomeNavigator {
-  navigateToContactsScreen();
+  navigateToCreateRoomScreen();
 }

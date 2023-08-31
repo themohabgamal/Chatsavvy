@@ -13,7 +13,7 @@ Future<MyUser> retriveUserData() async {
       id: docData!["id"],
       name: docData["name"],
       email: docData["email"],
-      imageUrl: docData['image'],
+      image: docData['image'],
       phone: docData['phone']);
   return user;
 }

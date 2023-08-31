@@ -10,7 +10,7 @@ class FireStoreHelper {
       'name': user.name,
       'email': user.email,
       'id': user.id,
-      'image': user.imageUrl,
+      'image': user.image,
       'phone': user.phone
     });
   }
@@ -62,5 +62,12 @@ class FireStoreHelper {
     var doc = getMessagesCollection(message.roomId).doc();
 
     return doc.delete();
+  }
+
+  Future<void> updateUserInfo(MyUser user) async {
+    await firebaseFirestore
+        .collection("users")
+        .doc(user.id)
+        .update(user.toMap());
   }
 }

@@ -6,6 +6,7 @@ import 'package:pillwise/src/views/add_room/add_room.dart';
 import 'package:pillwise/src/views/chat/chat_screen.dart';
 import 'package:pillwise/src/views/home/views/home_screen.dart';
 import 'package:pillwise/src/views/on_boarding/on_boarding_screen.dart';
+import 'package:pillwise/src/views/profile/profile_screen.dart';
 
 import 'firebase_options.dart';
 
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         ChatScreen.routeName: (context) => const ChatScreen(),
         SplashScreen.routeName: (context) => const SplashScreen(),
         OnBoardingScreen.routeName: (context) => const OnBoardingScreen(),
+        ProfileScreen.routeName: (context) => ProfileScreen(),
       },
       initialRoute: SplashScreen.routeName,
     );

@@ -8,13 +8,13 @@ import 'package:pillwise/src/models/my_room.dart';
 import 'package:pillwise/src/models/my_user.dart';
 
 import 'package:pillwise/src/shared/widgets/header_title_custom.dart';
-import 'package:pillwise/src/res/colors.dart';
 import 'package:pillwise/src/shared/widgets/horitzontal_avatar_name_chat_custom.dart';
 import 'package:pillwise/src/views/add_room/add_room.dart';
 import 'package:pillwise/src/views/chat/chat_screen.dart';
 import 'package:pillwise/src/views/home/components/my_drawer.dart';
 import 'package:pillwise/src/views/home/views/home_navigator.dart';
 import 'package:pillwise/src/views/home/views/home_view_model.dart';
+import 'package:pillwise/src/views/profile/profile_screen.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -29,14 +29,16 @@ class _HomeScreenState extends State<HomeScreen> implements HomeNavigator {
   HomeViewModel homeViewModel = HomeViewModel();
   String? name;
   String? imageUrl;
+  late MyUser myUser;
   @override
   void initState() {
     Future<MyUser> user = retriveUserData();
     user.then(
       (value) {
         setState(() {
+          myUser = value;
           name = value.name;
-          imageUrl = value.imageUrl;
+          imageUrl = value.image;
         });
       },
     );
@@ -48,23 +50,19 @@ class _HomeScreenState extends State<HomeScreen> implements HomeNavigator {
     return ChangeNotifierProvider(
       create: (context) => homeViewModel,
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              navigateToContactsScreen();
-            },
-            child: Image.asset("assets/images/add.png")),
+        extendBody: true,
         key: homeViewModel.scaffoldKey,
         drawer: MyDrawer(
           name: name,
           imageUrl: imageUrl,
         ),
-        backgroundColor: scaffoldColor,
+        backgroundColor: Colors.black,
         body: Stack(
           children: [
             Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 70, right: 5, left: 5),
+                  padding: const EdgeInsets.only(top: 70, right: 20, left: 5),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -77,15 +75,10 @@ class _HomeScreenState extends State<HomeScreen> implements HomeNavigator {
                             color: Colors.white,
                             size: 30,
                           )),
-                      IconButton(
-                          onPressed: () {
-                            homeViewModel.signOut();
-                          },
-                          icon: const Icon(
-                            Icons.logout,
-                            color: Colors.white,
-                            size: 30,
-                          )),
+                      Image.asset(
+                        "assets/images/notification.png",
+                        width: 28,
+                      )
                     ],
                   ),
                 ),
@@ -163,12 +156,51 @@ class _HomeScreenState extends State<HomeScreen> implements HomeNavigator {
                     )))
           ],
         ),
+        bottomNavigationBar: Container(
+          height: 80,
+          decoration: const BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.all(Radius.circular(50))),
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              InkWell(
+                onTap: () {},
+                child: Image.asset(
+                  "assets/images/group.png",
+                  width: 32,
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  navigateToCreateRoomScreen();
+                },
+                child: Image.asset(
+                  "assets/images/add.png",
+                  width: 30,
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, ProfileScreen.routeName,
+                      arguments: myUser);
+                },
+                child: Image.asset(
+                  "assets/images/profile.png",
+                  width: 30,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
 
   @override
-  navigateToContactsScreen() {
+  navigateToCreateRoomScreen() {
     Navigator.pushNamed(context, CreateNewRoom.routeName);
   }
 }

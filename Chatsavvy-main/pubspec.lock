@@ -15,6 +15,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.9.0"
+  auto_size_text:
+    dependency: "direct main"
+    description:
+      name: auto_size_text
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -43,13 +50,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
-  change_app_package_name:
-    dependency: "direct main"
-    description:
-      name: change_app_package_name
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.0"
   characters:
     dependency: transitive
     description:
@@ -251,13 +251,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.3.1"
-  flutter_contacts:
-    dependency: "direct main"
-    description:
-      name: flutter_contacts
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.7+1"
   flutter_lints:
     dependency: "direct dev"
     description:

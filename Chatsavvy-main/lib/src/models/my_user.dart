@@ -3,25 +3,25 @@ import 'dart:convert';
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class MyUser {
   static MyUser? currentUser;
-  String id;
-  String name;
-  String email;
-  String imageUrl;
-  String phone;
+  late String id;
+  late String name;
+  late String email;
+  late String image;
+  late String phone;
   MyUser({
     required this.id,
     required this.name,
     required this.email,
-    required this.imageUrl,
+    required this.image,
     required this.phone,
   });
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
+  toMap() {
+    return {
       'id': id,
       'name': name,
       'email': email,
-      'imageUrl': imageUrl,
+      'image': image,
       'phone': phone,
     };
   }
@@ -31,7 +31,7 @@ class MyUser {
       id: map['id'] as String,
       name: map['name'] as String,
       email: map['email'] as String,
-      imageUrl: map['imageUrl'] as String,
+      image: map['image'] as String,
       phone: map['phone'] as String,
     );
   }

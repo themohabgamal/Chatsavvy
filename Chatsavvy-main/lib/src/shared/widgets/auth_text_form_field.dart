@@ -10,10 +10,12 @@ class AuthTextFormField extends StatelessWidget {
   TextEditingController controller;
   IconData? icon;
   Color color;
+  void Function(String?)? onSaved;
   String? Function(String?)? validator;
   AuthTextFormField({
     Key? key,
     this.hintText,
+    this.onSaved,
     required this.secureText,
     this.maxLength,
     required this.controller,
@@ -45,6 +47,7 @@ class AuthTextFormField extends StatelessWidget {
       validator: validator,
       controller: controller,
       obscureText: secureText,
+      onSaved: onSaved,
     );
   }
 }
