@@ -29,92 +29,95 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => loginViewModel,
-      child: Scaffold(
-        backgroundColor: scaffoldColor,
-        resizeToAvoidBottomInset: false,
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(15),
-            child: SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const SizedBox(
-                    height: 120,
-                  ),
-                  const Text(
-                    'Login',
-                    style: TextStyle(
-                        color: primaryColor,
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 10),
-                  const Text(
-                    'Please sign in to continue',
-                    style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w300),
-                  ),
-                  const SizedBox(height: 40),
-                  Form(
-                    key: loginViewModel.formKey,
-                    child: Column(
-                      children: [
-                        AuthTextFormField(
-                            color: scaffoldColor,
-                            hintText: 'Email',
-                            secureText: false,
-                            controller: loginViewModel.emailController,
-                            icon: Icons.alternate_email),
-                        const SizedBox(height: 20),
-                        AuthTextFormField(
-                            color: scaffoldColor,
-                            hintText: "Password",
-                            secureText: true,
-                            controller: loginViewModel.passwordController,
-                            icon: Icons.lock),
-                        const SizedBox(height: 30),
-                        SizedBox(
-                            width: double.infinity,
-                            child: CustomButton(
-                                function: loginViewModel.signIn,
-                                text: "Login")),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              'not a user?',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 18,
-                                  color: Colors.white),
-                            ),
-                            // Add some space between the text and the button
-                            TextButton(
-                              onPressed: () {
-                                widget.switchScreen();
-                              },
-                              child: const Text(
-                                'Sign up',
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Scaffold(
+          backgroundColor: scaffoldColor,
+          resizeToAvoidBottomInset: false,
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: SafeArea(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const SizedBox(
+                      height: 120,
+                    ),
+                    const Text(
+                      'Login',
+                      style: TextStyle(
+                          color: primaryColor,
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 10),
+                    const Text(
+                      'Please sign in to continue',
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w300),
+                    ),
+                    const SizedBox(height: 40),
+                    Form(
+                      key: loginViewModel.formKey,
+                      child: Column(
+                        children: [
+                          AuthTextFormField(
+                              color: scaffoldColor,
+                              hintText: 'Email',
+                              secureText: false,
+                              controller: loginViewModel.emailController,
+                              icon: Icons.alternate_email),
+                          const SizedBox(height: 20),
+                          AuthTextFormField(
+                              color: scaffoldColor,
+                              hintText: "Password",
+                              secureText: true,
+                              controller: loginViewModel.passwordController,
+                              icon: Icons.lock),
+                          const SizedBox(height: 30),
+                          SizedBox(
+                              width: double.infinity,
+                              child: CustomButton(
+                                  function: loginViewModel.signIn,
+                                  text: "Login")),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                'not a user?',
                                 style: TextStyle(
-                                  color: primaryColor,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 18,
+                                    color: Colors.white),
+                              ),
+                              // Add some space between the text and the button
+                              TextButton(
+                                onPressed: () {
+                                  widget.switchScreen();
+                                },
+                                child: const Text(
+                                  'Sign up',
+                                  style: TextStyle(
+                                    color: primaryColor,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        )
-                      ],
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

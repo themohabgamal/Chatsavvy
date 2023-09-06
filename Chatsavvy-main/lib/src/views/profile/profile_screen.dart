@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pillwise/src/data/database/firebase_storage._helper.dart';
@@ -75,6 +76,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Expanded(
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
                             Center(
                               child: CircularProgressIndicator(),
@@ -91,6 +93,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       _phoneController =
                           TextEditingController(text: user.phone);
                       return Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Container(
                               margin: const EdgeInsets.all(20),
@@ -139,6 +142,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           const SizedBox(
                             height: 15,
                           ),
+                          ElevatedButton(
+                            onPressed: () async {
+                              MyUser user = MyUser(
+                                  id: FirebaseAuth.instance.currentUser!.uid,
+                                  name: _nameController.text.trim(),
+                                  email: _emailController.text.trim(),
+                                  image: imagUrl ??
+                                      "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png",
+                                  phone: _phoneController.text.trim());
+                              await FireStoreHelper().updateUserInfo(user);
+                              Future.delayed(
+                                const Duration(seconds: 2),
+                                () {
+                                  setState(() {});
+                                  Fluttertoast.showToast(
+                                      msg: "Profile was updated successfuly!",
+                                      fontSize: 18,
+                                      backgroundColor: primaryColor);
+                                },
+                              );
+
+                              // addRoomViewModel.addRoomNavigator.navigateToHome();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.all(16),
+                              backgroundColor: primaryColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            child: Text(
+                              'Save',
+                              style: headline4.copyWith(
+                                  fontSize: 22, color: Colors.white),
+                            ),
+                          )
                         ],
                       );
                     } else {
@@ -146,41 +185,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     }
                   },
                 ),
-                ElevatedButton(
-                  onPressed: () async {
-                    MyUser user = MyUser(
-                        id: myUser.id,
-                        name: _nameController.text.trim(),
-                        email: _emailController.text.trim(),
-                        image: imagUrl ?? "2",
-                        phone: _phoneController.text.trim());
-                    await FireStoreHelper().updateUserInfo(user);
-                    Future.delayed(
-                      const Duration(seconds: 2),
-                      () {
-                        setState(() {});
-                        Fluttertoast.showToast(
-                            msg: "Profile was updated successfuly!",
-                            fontSize: 18,
-                            backgroundColor: primaryColor);
-                      },
-                    );
-
-                    // addRoomViewModel.addRoomNavigator.navigateToHome();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.all(16),
-                    backgroundColor: primaryColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  child: Text(
-                    'Save',
-                    style:
-                        headline4.copyWith(fontSize: 22, color: Colors.white),
-                  ),
-                )
               ],
             ),
           ),

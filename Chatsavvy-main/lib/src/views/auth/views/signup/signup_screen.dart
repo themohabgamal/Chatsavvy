@@ -214,7 +214,7 @@ class _SignupScreenState extends State<SignupScreen> {
       MyUser user = MyUser(
           id: FirebaseAuth.instance.currentUser!.uid,
           name: _nameController.text.trim(),
-          image: MyUser.currentUser!.image,
+          image: imageUrl ?? '',
           email: _emailController.text.trim(),
           phone: _phoneController.text.trim());
       await FireStoreHelper().addUserToDB(user);

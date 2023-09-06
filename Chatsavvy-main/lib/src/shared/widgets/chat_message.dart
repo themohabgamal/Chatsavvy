@@ -60,71 +60,75 @@ class ChatMessage extends StatelessWidget {
               ],
             ),
           )
-        : Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CachedNetworkImage(
-                imageUrl: message.senderImage,
-                fit: BoxFit.fill,
-                imageBuilder: (context, imageProvider) => Container(
-                  width: 50.0,
-                  height: 50.0,
+        : Padding(
+            padding: const EdgeInsets.only(bottom: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CachedNetworkImage(
+                  imageUrl: message.senderImage,
+                  fit: BoxFit.fill,
+                  imageBuilder: (context, imageProvider) => Container(
+                    width: 50.0,
+                    height: 50.0,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                          image: imageProvider, fit: BoxFit.cover),
+                    ),
+                  ),
+                  placeholder: (context, url) => const Padding(
+                    padding: EdgeInsets.all(18.0),
+                    child: CircularProgressIndicator(
+                        strokeWidth: 2, color: primaryColor),
+                  ),
+                  errorWidget: (context, url, error) =>
+                      const Icon(Icons.person, color: Colors.white),
+                ),
+                Container(
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                        image: imageProvider, fit: BoxFit.cover),
+                      color: Colors.grey.withAlpha(90),
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
+                      )),
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 1, horizontal: 40),
+                  padding: const EdgeInsets.all(15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 0),
+                        child: Text(
+                          "~ ${message.senderName}",
+                          style: bodyText2.copyWith(
+                              fontSize: 17,
+                              color: Colors.orange,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      AutoSizeText(
+                        message.content,
+                        minFontSize: 18,
+                        style: bodyText2.copyWith(
+                            fontSize: 18, color: Colors.black),
+                      ),
+                    ],
                   ),
                 ),
-                placeholder: (context, url) => const Padding(
-                  padding: EdgeInsets.all(18.0),
-                  child: CircularProgressIndicator(
-                      strokeWidth: 2, color: primaryColor),
+                Padding(
+                  padding: const EdgeInsets.only(left: 30),
+                  child: Text(
+                    dateFormatter(
+                        DateTime.fromMillisecondsSinceEpoch(message.dateTime)),
+                    style:
+                        bodyText2.copyWith(fontSize: 14, color: Colors.black54),
+                  ),
                 ),
-                errorWidget: (context, url, error) =>
-                    const Icon(Icons.person, color: Colors.white),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    color: Colors.grey.withAlpha(90),
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
-                    )),
-                margin: const EdgeInsets.symmetric(vertical: 1, horizontal: 40),
-                padding: const EdgeInsets.all(15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 0),
-                      child: Text(
-                        "~ ${message.senderName}",
-                        style: bodyText2.copyWith(
-                            fontSize: 17,
-                            color: Colors.orange,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    AutoSizeText(
-                      message.content,
-                      minFontSize: 18,
-                      style:
-                          bodyText2.copyWith(fontSize: 18, color: Colors.black),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 30),
-                child: Text(
-                  dateFormatter(
-                      DateTime.fromMillisecondsSinceEpoch(message.dateTime)),
-                  style:
-                      bodyText2.copyWith(fontSize: 14, color: Colors.black54),
-                ),
-              ),
-            ],
+              ],
+            ),
           );
   }
 

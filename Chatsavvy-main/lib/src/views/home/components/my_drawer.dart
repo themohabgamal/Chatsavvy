@@ -5,6 +5,8 @@ import 'package:pillwise/src/models/my_user.dart';
 
 import 'package:pillwise/src/res/colors.dart';
 import 'package:pillwise/src/res/text_style.dart';
+import 'package:pillwise/src/views/about_us/about_us_screen.dart';
+import 'package:pillwise/src/views/profile/profile_screen.dart';
 
 import '../../auth/repo/auth.dart';
 
@@ -60,7 +62,7 @@ class _MyDrawerState extends State<MyDrawer> {
                     backgroundColor: Colors.transparent,
                     backgroundImage: Image.network(
                       myUser?.image ??
-                          "https://placehold.co/600x400/EEE/31343C",
+                          "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png",
                       fit: BoxFit.fill,
                     ).image,
                   ),
@@ -77,14 +79,8 @@ class _MyDrawerState extends State<MyDrawer> {
             leading: const Icon(Icons.person, color: Colors.white),
             title:
                 const Text('My Profile', style: TextStyle(color: Colors.white)),
-            onTap: () {},
-          ),
-          ListTile(
-            leading: const Icon(Icons.settings, color: Colors.white),
-            title:
-                const Text('Settings', style: TextStyle(color: Colors.white)),
             onTap: () {
-              // TODO: Implement Settings screen
+              Navigator.pushNamed(context, ProfileScreen.routeName);
             },
           ),
           ListTile(
@@ -92,7 +88,7 @@ class _MyDrawerState extends State<MyDrawer> {
             title:
                 const Text('About Us', style: TextStyle(color: Colors.white)),
             onTap: () {
-              // TODO: Implement About Us screen
+              Navigator.pushNamed(context, AboutUsScreen.routeName);
             },
           ),
           ListTile(
