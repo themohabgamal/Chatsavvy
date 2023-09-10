@@ -1,12 +1,16 @@
-import 'package:audioplayers/audioplayers.dart';
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sound/flutter_sound.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:pillwise/src/data/fire_store/fire_store_helper.dart';
 import 'package:pillwise/src/models/my_message.dart';
 import 'package:pillwise/src/models/my_room.dart';
 import 'package:pillwise/src/res/colors.dart';
 import 'package:pillwise/src/res/text_style.dart';
-import 'package:pillwise/src/shared/utils/voice.dart';
 import 'package:pillwise/src/shared/widgets/chat_message.dart';
 import 'package:pillwise/src/views/chat/chat_view_model.dart';
 
@@ -25,10 +29,31 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final ScrollController scrollController = ScrollController();
   String? imageUrl;
+  bool isRecorderInit = false;
+  bool isRecording = false;
+  FlutterSoundRecorder? _soundRecorder;
   ChatViewModel chatViewModel = ChatViewModel();
   @override
   void initState() {
     super.initState();
+    _soundRecorder = FlutterSoundRecorder();
+    openAudio();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _soundRecorder!.closeRecorder();
+    isRecorderInit = false;
+  }
+
+  void openAudio() async {
+    final status = await Permission.microphone.request();
+    if (status != PermissionStatus.granted) {
+      throw RecordingPermissionException("Mic is not granted");
+    }
+    await _soundRecorder!.openRecorder();
+    isRecorderInit = true;
   }
 
   @override
@@ -170,28 +195,42 @@ class _ChatScreenState extends State<ChatScreen> {
                         fillColor: Colors.white,
                         prefixIcon: GestureDetector(
                           onTap: () async {
-                            String audioUrl = await FirebaseFirestore.instance
-                                .collection('voice_messages')
-                                .doc('Mgyx7ya5TqCkMdPgRh2F')
-                                .get()
-                                .then((snapshot) =>
-                                    snapshot.data()!['downloadURL']);
-                            AudioPlayer audioPlayer = AudioPlayer();
+                            if (!isRecorderInit) {
+                              print("is init : $isRecorderInit");
+                              return;
+                            }
 
-                            print("${UrlSource(audioUrl)}");
-                            await audioPlayer.play(UrlSource(audioUrl));
-                          },
-                          onLongPress: () async {
-                            var audioPlayer = AudioPlayer();
-                            audioPlayer.play(AssetSource("sounds/start.mp3"));
-                            sendVoiceMessage();
+                            var tempDir = await getTemporaryDirectory();
+                            var path = "${tempDir.path}/flutter_sound.aac";
+                            if (isRecording) {
+                              await _soundRecorder!.stopRecorder();
+                              String uniqueName =
+                                  "${DateTime.now().millisecondsSinceEpoch.toString()}.aac";
+                              Reference referenceRoot =
+                                  FirebaseStorage.instance.ref();
+                              Reference referenceDirImages =
+                                  referenceRoot.child("voice_messages");
+                              Reference referenceImage =
+                                  referenceDirImages.child(uniqueName);
+                              await referenceImage.putFile(File(path));
+                              String downloadUrl =
+                                  await referenceImage.getDownloadURL();
+                              print(downloadUrl);
+                            } else {
+                              await _soundRecorder!.startRecorder(toFile: path);
+                            }
+                            setState(() {
+                              isRecording = !isRecording;
+                            });
                           },
                           child: CircleAvatar(
                             radius: 30,
                             backgroundColor: Colors.purple.withAlpha(40),
                             child: Image.asset(
-                              "assets/images/mic.png",
-                              width: 36,
+                              isRecording
+                                  ? "assets/images/square.png"
+                                  : "assets/images/mic.png",
+                              width: 30,
                             ),
                           ),
                         ),

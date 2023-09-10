@@ -51,17 +51,15 @@ Future<String> uploadRecordingToFirebaseStorage() async {
   }
 
   File file = File(_recordPath!);
-  String fileName =
-      'voice_message_${DateTime.now().millisecondsSinceEpoch}.aac';
-  Reference storageReference =
-      FirebaseStorage.instance.ref().child('voice_messages').child(fileName);
-  UploadTask uploadTask = storageReference.putFile(file);
-  await uploadTask.whenComplete(() => null);
+  String uniqueName = DateTime.now().millisecondsSinceEpoch.toString();
 
-  // Get the download URL of the uploaded file
-  String downloadURL = await storageReference.getDownloadURL();
+  Reference referenceRoot = FirebaseStorage.instance.ref();
+  Reference referenceDirVoice = referenceRoot.child("voice_messages");
+  Reference referenceVoice = referenceDirVoice.child(uniqueName);
+  await referenceVoice.putFile(file);
+  String downloadUrl = await referenceVoice.getDownloadURL();
   print("added to storageeeeeeeeeeeeeeeeeeeeeeeee");
-  return downloadURL;
+  return downloadUrl;
 }
 
 // Save the voice message details to Firestore

@@ -29,7 +29,6 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  audioplayers: ^4.1.0
   auto_size_text: ^3.0.0
   cached_network_image: ^3.2.3
   cloud_firestore: ^4.8.3
@@ -47,7 +46,7 @@ dependencies:
   toast: ^0.3.0
   path_provider: ^2.0.5
   flutter_sound: ^9.2.13
-  permission_handler: ^10.4.4
+  permission_handler: ^9.2.0
 dev_dependencies:
   flutter_lints: ^2.0.2
   flutter_test:
